@@ -12,14 +12,14 @@ def load_stats():
 
 def save_stats(stats):
     with open(FILENAME, "w", newline="") as f:
-        fieldnames = ["date", "goals", "assists", "miles", "minuites"]
+        fieldnames = ["date", "goals", "assists", "miles", "minutes"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(stats)
 
-def add_game(date, goals, assists, miles, minuites):
+def add_game(date, goals, assists, miles, minutes):
     stats = load_stats()
-    stats.append({"date": date, "goals": goals, "assists": assists, "miles": miles, "minuites": minuites})
+    stats.append({"date": date, "goals": goals, "assists": assists, "miles": miles, "minutes": minutes})
     save_stats(stats)
     print("Game added!")
 
@@ -32,7 +32,7 @@ def show_stats():
     total_goals = sum(int(row["goals"]) for row in stats)
     total_assists = sum(int(row["assists"]) for row in stats)
     total_miles = sum(int(row["miles"]) for row in stats)
-    total_minuites = sum(int(row["minuites"]) for row in stats)
+    total_minutes = sum(int(row["minutes"]) for row in stats)
     games_played = len(stats)
     
     print(f"\nGames played: {games_played}")
@@ -41,7 +41,7 @@ def show_stats():
     print(f"Goals per game: {total_goals / games_played:.2f}")
     print(f"Assists per game: {total_assists / games_played:.2f}")
     print(f"Miles per game: {total_miles / games_played:.2f}")
-    print(f"Minuites per game: {total_minuites / games_played:.2f}")
+    print(f"Minutes per game: {total_minutes / games_played:.2f}")
 
 # Test it
 def main():
@@ -54,8 +54,8 @@ def main():
         goals = int(input("Goals: "))
         assists = int(input("Assists: "))
         miles = int(input("Miles Ran: "))
-        minuites = int(input("Minuites Played: "))
-        add_game(date, goals, assists, miles, minuites)
+        minutes = int(input("Minutes Played: "))
+        add_game(date, goals, assists, miles, minutes)
     elif choice == "2":
         show_stats()
 
