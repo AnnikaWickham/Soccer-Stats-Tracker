@@ -12,14 +12,14 @@ def load_stats():
 
 def save_stats(stats):
     with open(FILENAME, "w", newline="") as f:
-        fieldnames = ["date", "goals", "assists", "miles", "minutes"]
+        fieldnames = ["date", "goals", "assists", "miles", "minutes", "opponent", "score", "notes"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(stats)
 
-def add_game(date, goals, assists, miles, minutes):
+def add_game(date, goals, assists, miles, minutes, opponent, score, notes):
     stats = load_stats()
-    stats.append({"date": date, "goals": goals, "assists": assists, "miles": miles, "minutes": minutes})
+    stats.append({"date": date, "goals": goals, "assists": assists, "miles": miles, "minutes": minutes, "opponent": opponent, "score": score, "notes": notes})
     save_stats(stats)
     print("Game added!")
 
@@ -55,7 +55,10 @@ def main():
         assists = int(input("Assists: "))
         miles = int(input("Miles Ran: "))
         minutes = int(input("Minutes Played: "))
-        add_game(date, goals, assists, miles, minutes)
+        opponent = input("Opponent: ")
+        score = input("Score: ")
+        notes = input("Notes: ")
+        add_game(date, goals, assists, miles, minutes, opponent, score, notes)
     elif choice == "2":
         show_stats()
 
