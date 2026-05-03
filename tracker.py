@@ -46,16 +46,7 @@ def show_stats():
 def show_opponent(opponent_name):
     stats = load_stats()
     games = [row for row in stats if row["opponent"].lower() == opponent_name.lower()]
-    
-    if len(games) == 0:
-        print(f"No games found against {opponent_name}")
-        return
-    
-    print(f"\nGames against {opponent_name}:")
-    for game in games:
-        print(f"  {game['date']} | Score: {game['score']} | Goals: {game['goals']} | Assists: {game['assists']}")
-        print(f"  Notes: {game['notes']}")
-        print()
+    return games
 
 # Test it
 def main():
@@ -80,4 +71,5 @@ def main():
         opponent = input("Opponent name: ")
         show_opponent(opponent)
 
-main()
+if __name__ == "__main__":
+    main()
