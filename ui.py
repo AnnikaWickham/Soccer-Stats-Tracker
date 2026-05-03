@@ -75,7 +75,6 @@ def look_up_opponent():
     results_frame.pack(pady=10)
 
     def search():
-        print("search called")
         for widget in results_frame.winfo_children():
             widget.destroy()
         
