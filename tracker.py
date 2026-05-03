@@ -42,11 +42,26 @@ def show_stats():
     print(f"Assists per game: {total_assists / games_played:.2f}")
     print(f"Miles per game: {total_miles / games_played:.2f}")
     print(f"Minutes per game: {total_minutes / games_played:.2f}")
+    
+def show_opponent(opponent_name):
+    stats = load_stats()
+    games = [row for row in stats if row["opponent"].lower() == opponent_name.lower()]
+    
+    if len(games) == 0:
+        print(f"No games found against {opponent_name}")
+        return
+    
+    print(f"\nGames against {opponent_name}:")
+    for game in games:
+        print(f"  {game['date']} | Score: {game['score']} | Goals: {game['goals']} | Assists: {game['assists']}")
+        print(f"  Notes: {game['notes']}")
+        print()
 
 # Test it
 def main():
     print("1. Add game")
     print("2. View stats")
+    print("3. Look up opponent")
     choice = input("Choose: ")
     
     if choice == "1":
@@ -61,5 +76,8 @@ def main():
         add_game(date, goals, assists, miles, minutes, opponent, score, notes)
     elif choice == "2":
         show_stats()
+    elif choice == "3":
+        opponent = input("Opponent name: ")
+        show_opponent(opponent)
 
 main()
