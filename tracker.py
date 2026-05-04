@@ -48,6 +48,22 @@ def show_opponent(opponent_name):
     games = [row for row in stats if row["opponent"].lower() == opponent_name.lower()]
     return games
 
+def get_goal_percentage():
+    stats = load_stats()
+    if len(stats) == 0:
+        return ("No Current Stats")
+    
+    total_goals = sum(int(row["goals"]) for row in stats if row["score"] and "-" in row["score"])
+    total_team_goals = sum(int(row["score"].split("-")[0]) for row in stats if row["score"] and "-" in row["score"])
+    if total_team_goals == 0:
+        return ("Error in Stats")
+
+    return (f"{(total_goals / total_team_goals) * 100:.1f} %")
+
+    
+
+
+
 # Test it
 def main():
     print("1. Add game")

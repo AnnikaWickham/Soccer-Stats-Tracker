@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox
-from tracker import load_stats, add_game, show_opponent
+from tracker import load_stats, add_game, show_opponent, get_goal_percentage
 
 root = tk.Tk()
 root.title("Soccer Performance Tracker")
@@ -14,7 +14,7 @@ def open_add_game():
     form.title("Add Game")
     form.geometry("400x600")
 
-    fields = ["Date (YYYY-MM-DD)", "Goals", "Assists", "Miles Ran", "Minutes Played", "Opponent", "Score", "Notes"]
+    fields = ["Date (YYYY-MM-DD)", "Goals Scored By You", "Assists From You", "Miles Ran", "Minutes Played", "Opponent", "Score (YourTeam - OtherTeam)", "Notes"]
     entries = {}
 
     for field in fields:
@@ -26,12 +26,12 @@ def open_add_game():
     def submit():
         add_game(
             entries["Date (YYYY-MM-DD)"].get(),
-            int(entries["Goals"].get()),
-            int(entries["Assists"].get()),
+            int(entries["Goals Scored By You"].get()),
+            int(entries["Assists From You"].get()),
             int(entries["Miles Ran"].get()),
             int(entries["Minutes Played"].get()),
             entries["Opponent"].get(),
-            entries["Score"].get(),
+            entries["Score (YourTeam - OtherTeam)"].get(),
             entries["Notes"].get()
         )
         form.destroy()
@@ -61,6 +61,7 @@ def open_stats():
         tk.Label(form, text=f"Minutes per game: {total_minutes / games_played:.2f}").pack(pady=2)
         tk.Label(form, text=f"Total Minuites: {total_minutes}").pack(pady=2)
         tk.Label(form, text=f"Total Miles: {total_miles}").pack(pady=2)
+        tk.Label(form, text=f"Personal Goal Percentage: {get_goal_percentage()}").pack(pady=2)
 
 def look_up_opponent():
     form = tk.Toplevel(root)
