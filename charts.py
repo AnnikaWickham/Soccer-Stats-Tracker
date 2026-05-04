@@ -20,7 +20,7 @@ def plot_goals_over_time():
     plt.ylabel("Goals")
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+    return plt.gcf()
 
 def plot_minutes_over_time():
     stats = load_stats()
@@ -34,7 +34,7 @@ def plot_minutes_over_time():
     plt.ylabel("Minutes Played")
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+    return plt.gcf()
 
 def plot_goals_and_assists():
     stats = load_stats()
@@ -51,16 +51,17 @@ def plot_goals_and_assists():
     plt.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+    return plt.gcf()
 
-print("1. Goals over time")
-print("2. Playing time over time")
-print("3. Goals and assists together")
-choice = input("Choose a graph: ")
+if __name__ == "__main__":
+    print("1. Goals over time")
+    print("2. Playing time over time")
+    print("3. Goals and assists together")
+    choice = input("Choose a graph: ")
 
-if choice == "1":
-    plot_goals_over_time()
-elif choice == "2":
-    plot_minutes_over_time()
-elif choice == "3":
-    plot_goals_and_assists()
+    if choice == "1":
+        plot_goals_over_time()
+    elif choice == "2":
+        plot_minutes_over_time()
+    elif choice == "3":
+        plot_goals_and_assists()

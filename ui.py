@@ -1,6 +1,9 @@
 import tkinter as tk
 import tkinter.messagebox
 from tracker import load_stats, add_game, show_opponent, get_goal_percentage
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.pyplot as plt
+from charts import plot_goals_over_time, plot_minutes_over_time, plot_goals_and_assists
 
 root = tk.Tk()
 root.title("Soccer Performance Tracker")
@@ -37,6 +40,27 @@ def open_add_game():
         form.destroy()
         tk.messagebox.showinfo("Success", "Game added!")
     tk.Button(form, text="Submit", width=20, command=submit).pack(pady=20)
+
+def open_charts():
+    form = tk.Toplevel(root)
+    form.title("Performance Charts")
+    form.geometry("600x500")
+
+    def show_chart(chart_func):
+        for widget in form.winfo_children():
+            widget.destroy()
+        
+        fig = chart_func()
+        canvas = FigureCanvasTkAgg(fig, master=form)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+    btn_frame = tk.Frame(form)
+    btn_frame.pack(pady=10)
+
+    tk.Button(btn_frame, text="Goals Over Time", command=lambda: show_chart(plot_goals_over_time)).pack(side=tk.LEFT, padx=5)
+    tk.Button(btn_frame, text="Playing Time", command=lambda: show_chart(plot_minutes_over_time)).pack(side=tk.LEFT, padx=5)
+    tk.Button(btn_frame, text="Goals & Assists", command=lambda: show_chart(plot_goals_and_assists)).pack(side=tk.LEFT, padx=5)
 
 def open_stats():
     form = tk.Toplevel(root)
@@ -97,6 +121,9 @@ add_button.pack(pady=5)
 
 stats_button = tk.Button(root, text="View Stats", width=20, height=2, command= open_stats)
 stats_button.pack(pady=5)
+
+charts_button = tk.Button(root, text="View Charts", width=20, height=2, command=open_charts)
+charts_button.pack(pady=5)
 
 opponent_button = tk.Button(root, text="Look Up Opponent", width=20, height=2, command = look_up_opponent)
 opponent_button.pack(pady=5)
