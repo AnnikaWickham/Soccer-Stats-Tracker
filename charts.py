@@ -3,11 +3,14 @@ import csv
 
 FILENAME = "stats.csv"
 
+# Loads the current stats.csv file
 def load_stats():
     with open(FILENAME, "r") as f:
         reader = csv.DictReader(f)
         return list(reader)
 
+# Creates a plot using pyplot to plot players goals over the course
+# of the given games (time on x-axis) (# of goals on y-axis)
 def plot_goals_over_time():
     stats = load_stats()
     dates = [row["date"] for row in stats]
@@ -22,6 +25,8 @@ def plot_goals_over_time():
     plt.tight_layout()
     return plt.gcf()
 
+# Creates a graph of minuites played over time
+# (time on x-axis) (minuites per game on y-axis)
 def plot_minutes_over_time():
     stats = load_stats()
     dates = [row["date"] for row in stats]
@@ -36,6 +41,8 @@ def plot_minutes_over_time():
     plt.tight_layout()
     return plt.gcf()
 
+# Graphs both goals scored and assists given on the same plot
+# (time on x-axis) (goals - assists on y-axis)
 def plot_goals_and_assists():
     stats = load_stats()
     dates = [row["date"] for row in stats]
@@ -53,6 +60,8 @@ def plot_goals_and_assists():
     plt.tight_layout()
     return plt.gcf()
 
+# Makes sure that charts.py isnt called when it first gets imported
+# by ui.py, (this part was used before ui was implemented)
 if __name__ == "__main__":
     print("1. Goals over time")
     print("2. Playing time over time")

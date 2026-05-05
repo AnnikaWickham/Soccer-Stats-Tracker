@@ -5,13 +5,14 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from charts import plot_goals_over_time, plot_minutes_over_time, plot_goals_and_assists
 
+# Creates the root + window title
 root = tk.Tk()
 root.title("Soccer Performance Tracker")
 root.geometry("500x400")
-
 label = tk.Label(root, text="Soccer Performance Tracker", font=("Arial", 18, "bold"))
 label.pack(pady=20)
 
+# Opens a new window to add a game (once the add game button is pressed)
 def open_add_game():
     form = tk.Toplevel(root)
     form.title("Add Game")
@@ -26,6 +27,7 @@ def open_add_game():
         entry.pack(pady=2)
         entries[field] = entry
 
+    # Closes window + updates csv when sumbit button is clicked
     def submit():
         add_game(
             entries["Date (YYYY-MM-DD)"].get(),
@@ -41,11 +43,13 @@ def open_add_game():
         tk.messagebox.showinfo("Success", "Game added!")
     tk.Button(form, text="Submit", width=20, command=submit).pack(pady=20)
 
+# Opens a new window to access the graphs
 def open_charts():
     form = tk.Toplevel(root)
     form.title("Performance Charts")
     form.geometry("600x500")
 
+    # draws the chart into the given window
     def show_chart(chart_func):
         for widget in form.winfo_children():
             widget.destroy()
@@ -62,6 +66,7 @@ def open_charts():
     tk.Button(btn_frame, text="Playing Time", command=lambda: show_chart(plot_minutes_over_time)).pack(side=tk.LEFT, padx=5)
     tk.Button(btn_frame, text="Goals & Assists", command=lambda: show_chart(plot_goals_and_assists)).pack(side=tk.LEFT, padx=5)
 
+# Opens a new window with all the current stats in word form
 def open_stats():
     form = tk.Toplevel(root)
     form.title("Soccer Stats")
@@ -87,6 +92,7 @@ def open_stats():
         tk.Label(form, text=f"Total Miles: {total_miles}").pack(pady=2)
         tk.Label(form, text=f"Personal Goal Percentage: {get_goal_percentage()}").pack(pady=2)
 
+# Window to look up games by opponent
 def look_up_opponent():
     form = tk.Toplevel(root)
     form.title("Search Game by Opponent")
@@ -99,6 +105,7 @@ def look_up_opponent():
     results_frame = tk.Frame(form)
     results_frame.pack(pady=10)
 
+    # Very similar to how sumbit button works
     def search():
         for widget in results_frame.winfo_children():
             widget.destroy()
@@ -115,7 +122,7 @@ def look_up_opponent():
     tk.Button(form, text="Search", width=20, command=search).pack(pady=20)
 
     
-
+# Adds all the cool buttons that do all the actions :)
 add_button = tk.Button(root, text="Add Game", width=20, height=2, command= open_add_game)
 add_button.pack(pady=5)
 
