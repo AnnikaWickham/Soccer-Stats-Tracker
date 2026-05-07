@@ -1,17 +1,20 @@
 # Soccer Performance Tracker
 
-A command line tool to log and analyze personal soccer stats over time.
+A desktop application built in Python to log and analyze personal soccer 
+performance over time. YAY
 
 ## Features
 - Log goals, assists, minutes played, and miles run per game
-- View career totals and per-game averages
-- Visualize performance trends with matplotlib graphs
+- Track opponent history with scores and personal notes
+- View career stats including totals, averages, and personal goal percentage
+- Visualize performance trends with interactive charts
 
-## How to run
+## How to Run
 1. Clone the repo
-2. Install dependencies: pip install matplotlib
-3. Track stats: python tracker.py
-4. View graphs: python charts.py
+2. Create a virtual environment: `python3 -m venv .venv`
+3. Activate it: `source .venv/bin/activate`
+4. Install dependencies: `pip install matplotlib`
+5. Run the app: `python3 ui.py`
 
-## Built with
-Python, csv module, matplotlib
+## Built With
+Python, tkinter, matplotlib
